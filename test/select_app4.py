@@ -7,10 +7,12 @@ from datetime import datetime, date, time
 # 화면에서 유저한테  시, 분, 초, 날짜  받아서  저장 버튼 누르면 DB에 저장 하게 
 # date_input , time_input 사용
 
+# 
+
 # cats4 table 사용한 앱
 
 def main() :
-    st.title('cats4 table')
+    st.title('books table')
     
    
 
@@ -47,8 +49,22 @@ def main() :
                 # record = cursor.fetchone()   커밋하는건 결과를 셀렉트 해오는게아니라서 이 코드가 필요없다
                 # print('Connected to db : ', record)
 
+                # results =  cursor.fetchall()
+                 # results에는 워크밴치의 books테이블 데이터들이 전부 담겨있음 select는 fetch를 쓰는서다 가져오는 것이니까
+                # for data in results :
+                #     print(data[1], data[4])  # 책의 제목과 출판연도를 볼수 있음 
     
+                cursor = connection.cursor(dictionary= True)  # 이렇게하면 키:밸류 처럼 딕셔너리 형식으로 나온다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!??????????
+                cursor.execute(query)
+                results = cursor.fetchall()
 
+                print()
+                print()
+
+                print(results)
+
+                for data in results :
+                    print( data['title'], data['released_year'] )
 
         except Error as e :
             print('디비 관련 에러 발생', e)

@@ -19,31 +19,33 @@ def main() :
         try :
             # 1. 커넉터로 부터 커넥션을 받는다.
             connection = mysql.connector.connect(
-                host = 'database-1.cyfvtkkh7ho8.us-east-2.rds.amazonaws.com',
+                host = 'database-1.cyfvtkkh7ho8.us-east-2.rds.amazonaws.com',  # 아이피주소 써도됨
                 database = 'yhDB',
                 user =  'streamlit',
                 password = 'yh1234'
             )
 
-            if connection.is_connected() :
+            if connection.is_connected() :  # 해당 커넥션이 뎐결되어있냐? 
                 db_info = connection.get_server_info()
                 print("MySQL server version : ", db_info)
 
-                # 2. 커서를 가져온다.
+                # 2. 커서를 가져온다.              # 되어있으면 커서를 가져온다
                 cursor = connection.cursor()
 
                 # 3. 우리가 원하는 거 실행 가능. (쿼리문)
-                # cursor.execute('select database();')
+                # cursor.execute('select database();')  # 그러면 우리가 원하는 것 실행 가능 하다 
+                                                        
 
             
-                query = """insert into cats4 (name, age)
-                            values ( %s,%s);"""
-                                                                        # 컴바인 쓰면 데이트랑 타임 합쳐서 볼수 있음
+                query = """insert into cats4 (name, age)  
+                 values ( %s,%s);"""   # 내가 실행 시키고 싶은 쿼리는 워크밴치에서 먼저 실행을 시켜보고 가져와야해 
+
+                                                                        
                 record =  [ ( '나비',3),('단비',5) ] # 한개의 데이터 넣을 땐 튜플형식으로 (야옹이, 5) 이고 여러개 넣을 땐 리스트로 묶어서 [(나비,3),(단비,5)]  이렇게 써서  cursor.executemany(query,record) 하면 됨
                 print(datetime.now())
 
                 cursor.executemany(query,record)
-                connection.commit()  
+                connection.commit()    # 메모리에 반영이 아니라 데이터베이스에 반영해라 라는 커밋 이고 셀렉트는 이게 필요없다 
                 print( "{}개 적용됨".format(cursor.rowcount) )  # 저장하고나서 우리가 보기 편하게 디버깅용으로 이렇게 나타내라 
 
                 # 4. 실행 후 커서에서 결과를 빼낸다
