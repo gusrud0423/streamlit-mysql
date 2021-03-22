@@ -15,6 +15,12 @@ from mysql.connector import Error
 
 from my_sql_select import my_sql_select
 
+from my_sql_insert import my_sql_insert
+
+# from my_sql_update import my_sql_update
+
+# from my_sql_delete import my_sql_delete
+
 def main():
     menu = ['Select', 'Insert', 'Update', 'Delete']  # 메뉴 카테고리
     choice = st.sidebar.selectbox('메뉴', menu)  # 메뉴를 표시해라
@@ -22,6 +28,15 @@ def main():
 
     if choice == 'Select' :
         my_sql_select()
+
+    if choice ==  'Insert' :
+        my_sql_insert()
+
+    # if choice == 'Update' :
+    #     my_sql_update()
+    
+    # if choice == 'Delete' :
+    #     my_sql_delete()
     
 
 if __name__ == '__main__' :
